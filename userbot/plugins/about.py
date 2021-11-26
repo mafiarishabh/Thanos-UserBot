@@ -85,6 +85,3 @@ async def amireallyalive(yes):
     await alive.delete()
 
 
-CmdHelp("about").add_command("about", None, "BEST alive command").add_warning(
-    "Harmless Module✅"
-).add_info("Just Like Alive But Changing Alwayd Pic").add_type("Official").add()
