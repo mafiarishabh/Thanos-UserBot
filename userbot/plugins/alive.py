@@ -1,6 +1,6 @@
 # Thanks to @D3_krish
-# Porting in REBELUSERBOT by REBEL75
-
+# Porting in THANOSBOT BY REBEL75
+# CREDITS REBEL75 @D3_krish
 import asyncio
 import random
 from telethon import events, version
