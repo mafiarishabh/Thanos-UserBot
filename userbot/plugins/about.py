@@ -19,6 +19,9 @@ file3 = "https://telegra.ph/file/05e7453665d6028bfe450.jpg"
 file4 = "https://telegra.ph/file/e021b9b5ddb6fdecedc8e.jpg"
 file5 = "https://telegra.ph/file/c66fad876cf0926662463.jpg"
 """ =======================CONSTANTS====================== """
+
+pm_caption = " __**🔥🔥ＴＨΛＮ♢Ｓ ＩＳ ΛＬＩＶΣ🔥🔥**__\n\n"
+
 pm_caption = f"** {CUSTOM_ALIVE_TEXT}**\n"
 pm_caption += f"**╭────────────**\n"
 pm_caption += f"┣»»»『{thanos_mention}』«««\n"
@@ -29,8 +32,8 @@ pm_caption += f"┣Řepô    ~ [Rєρο](https://github.com/thanosuser/ThanosBot
 pm_caption += f"**╰────────────**\n"
 
 
-@borg.on(admin_cmd(pattern=r"about"))
-@borg.on(sudo_cmd(pattern="about$", allow_sudo=True))
+@borg.on(admin_cmd(pattern=r"alive"))
+@borg.on(sudo_cmd(pattern="alive$", allow_sudo=True))
 async def amireallyalive(yes):
     await yes.get_chat()
 
