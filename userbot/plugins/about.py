@@ -85,3 +85,8 @@ async def amireallyalive(yes):
     await alive.delete()
 
 
+CmdHelp("alive").add_command(
+  "alive", None, "To check am i alive"
+).add_command(
+  "rebel", None, "To check am i alive with your favorite alive pic"
+).add()
