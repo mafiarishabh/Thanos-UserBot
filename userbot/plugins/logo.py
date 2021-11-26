@@ -9,7 +9,7 @@ from . import *
 
 
 PICS_STR = []
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "REBEL User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "THANOS User"
 aura = borg.uid
 
 @bot.on(admin_cmd(pattern="logo (.*)"))
