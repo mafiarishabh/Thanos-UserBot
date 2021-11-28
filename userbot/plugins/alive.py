@@ -37,11 +37,11 @@ pm_caption += (
 pm_caption += f"┏━━━━━━━━━━━━━━━━━━\n"
 pm_caption += f"┣•➳➠ `ＴΞＬΣＴＨ♢Ｎ:` `{version.__version__}` \n"
 pm_caption += f"┣•➳➠ `ＴＨΛＮ♢Ｓ:`    [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)\n"
-pm_caption += f"┣•➳➠ `ＣＨΛＮＮΞＬ:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
-pm_caption += f"┣•➳➠ `♢ＷＮΣＲ:` [RISHABH](https://t.me/MAFIARISHABH)\n"
-pm_caption += f"┣•➳➠ `Do Join:` [THANOS CHAT](https://t.me/thanosbot_chat)\n"
+pm_caption += f"┣•➳➠ `ＣＨΛＮＮΞＬ:` [Ｊ♢ＩＮ](https://t.me/thanos_userbots)\n"
+pm_caption += f"┣•➳➠ `♢ＷＮΣＲ:` [ＲＩＳＨΛＢＨ](https://t.me/MAFIARISHABH)\n"
+pm_caption += f"┣•➳➠ `ＳＵＰＰ♢ＲＴ:` [Ｊ♢ＩＮ](https://t.me/thanosbot_chats)\n"
 pm_caption += f"┗━━━━━━━━━━━━━━━━━━\n"
-pm_caption += " [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)"
+
 
 # @command(outgoing=True, pattern="^.thanos$")
 @bot.on(admin_cmd(outgoing=True, pattern="thanos$"))
