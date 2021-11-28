@@ -28,20 +28,20 @@ file2 = "https://telegra.ph/file/97012cc8b32a2744c50b3.jpg"
 file3 = "https://telegra.ph/file/ba5bc78cdf6fbc65e1cce.jpg"
 file4 = "https://telegra.ph/file/4c1b9c5b5856109533635.jpg"
 """ =======================CONSTANTS====================== """
-pm_caption = "  __**🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**__\n\n"
+pm_caption = "  __**🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ  ΛＬＩＶΣ🔥🔥**__\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
     f"                💞BOSS💞\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
 )
 pm_caption += f"┏━━━━━━━━━━━━━━━━━━\n"
-pm_caption += f"┣•➳➠ `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
-pm_caption += f"┣•➳➠ `𝚂𝚞𝚍𝚘:` `{sudou}`\n"
-pm_caption += f"┣•➳➠ `𝙲𝚑𝚊𝚗𝚗𝚎𝚕:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
-pm_caption += f"┣•➳➠ `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [RISHABH](https://t.me/MAFIARISHABH)\n"
+pm_caption += f"┣•➳➠ `ＴΞＬΣＴＨ♢Ｎ:` `{version.__version__}` \n"
+pm_caption += f"┣•➳➠ `ＴＨΛＮ♢Ｓ:`    [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)\n"
+pm_caption += f"┣•➳➠ `ＣＨΛＮＮΞＬ:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
+pm_caption += f"┣•➳➠ `♢ＷＮΣＲ:` [RISHABH](https://t.me/MAFIARISHABH)\n"
 pm_caption += f"┣•➳➠ `Do Join:` [THANOS CHAT](https://t.me/thanosbot_chat)\n"
 pm_caption += f"┗━━━━━━━━━━━━━━━━━━\n"
-pm_caption += " [🔥𝐑𝐄𝐏𝐎🔥](https://github.com/SURTURBOT/ThanosBot) 🔹 Do Join [📜THANOS CHAT📜](https://t.me/thanosbot_chat)"
+pm_caption += " [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)"
 
 # @command(outgoing=True, pattern="^.thanos$")
 @bot.on(admin_cmd(outgoing=True, pattern="thanos$"))
