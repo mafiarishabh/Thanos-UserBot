@@ -36,7 +36,7 @@ pm_caption += (
 )
 pm_caption += f"╭────────────\n"
 pm_caption += f"┣•➳➠ `ＴΞＬΣＴＨ♢Ｎ:` `{version.__version__}` \n"
-pm_caption += f"┣•➳➠ `ＴＨΛＮ♢Ｓ:`    [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)\n"
+pm_caption += f"┣•➳➠ `ＴＨΛＮ♢Ｓ:`  [ＲΞＰ♢](https://github.com/thanosuser/ThanosBot)\n"
 pm_caption += f"┣•➳➠ `ＣＨΛＮＮΞＬ:` [Ｊ♢ＩＮ](https://t.me/thanos_userbots)\n"
 pm_caption += f"┣•➳➠ `♢ＷＮΣＲ:` [ＲＩＳＨΛＢＨ](https://t.me/MAFIARISHABH)\n"
 pm_caption += f"┣•➳➠ `ＳＵＰＰ♢ＲＴ:` [Ｊ♢ＩＮ](https://t.me/thanosbot_chats)\n"
