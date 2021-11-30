@@ -4,13 +4,17 @@ import os
 
 import heroku3
 import requests
-
-from userbot import CMD_HELP
-from userbot.Config import Config
-from REBELBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
-from userbot.cmdhelp import CmdHelp
 import urllib3
 
+from LEGENDBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from userbot.cmdhelp import CmdHelp
+from userbot.Config import Config
+
+from . import *
+
+USERID = bot.uid
+DEFAULTUSER = ALIVE_NAME or "ℓєgєи∂ϐοy"
+mention = f"[{DEFAULTUSER}](tg://user?id={USERID})"
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # =====================================
 
@@ -20,9 +24,8 @@ heroku_api = "https://api.heroku.com"
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME
 HEROKU_API_KEY = Config.HEROKU_API_KEY
 
-Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+Heroku = heroku3.from_key(Config.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-REBEL_logo = "./REBEL725/REBELBOT_logo.jpg"
 
 
 @borg.on(
@@ -35,8 +38,8 @@ async def variable(var):
     Manage most of ConfigVars setting, set new var, get current var,
     or delete var...
     """
-    if Var.HEROKU_APP_NAME is not None:
-        app = Heroku.app(Var.HEROKU_APP_NAME)
+    if Config.HEROKU_APP_NAME is not None:
+        app = Heroku.app(Config.HEROKU_APP_NAME)
     else:
         return await var.edit("`[HEROKU]:" "\nPlease setup your` **HEROKU_APP_NAME**")
     exe = var.pattern_match.group(1)
@@ -46,10 +49,14 @@ async def variable(var):
         await asyncio.sleep(1.5)
         try:
             variable = var.pattern_match.group(2).split()[0]
-            if variable in heroku_var:
-                return await var.edit(
-                    "**ConfigVars**:" f"\n\n`{variable} = {heroku_var[variable]}`\n"
+            legend = "**ConfigVars**:" f"\n\n {variable} = `{heroku_var[variable]}`\n"
+            if "LEGEND_STRING" in variable:
+                await eor(
+                    var, "Legend String is a Sensetive Data.\nProtected By LegendBot"
                 )
+                return
+            elif variable in heroku_var:
+                await eor(var, legend)
             else:
                 return await var.edit(
                     "**ConfigVars**:" f"\n\n`Error:\n-> {variable} don't exists`"
@@ -80,22 +87,25 @@ async def variable(var):
         await var.edit("`Setting information...weit ser`")
         variable = var.pattern_match.group(2)
         if not variable:
-            return await var.edit(">`.set var <ConfigVars-name> <value>`")
+            return await var.edit("`.set var <ConfigVars-name> <value>`")
         value = var.pattern_match.group(3)
         if not value:
             variable = variable.split()[0]
             try:
                 value = var.pattern_match.group(2).split()[1]
             except IndexError:
-                return await var.edit(">`.set var <ConfigVars-name> <value>`")
+                return await var.edit("`.set var <ConfigVars-name> <value>`")
         await asyncio.sleep(1.5)
-        if variable in heroku_var:
+        if "LEGEND_STRING" in variable:
+            await eor(var, "Successfully Changed To {value}")
+            return
+        elif variable in heroku_var:
             await var.edit(
-                f"**{variable}**  `successfully changed to`  ->  **{value}**"
+                f"**{variable}**  `successfully changed to`  ->  **{value}**\nWait A Minute Changes In Heroku.."
             )
         else:
             await var.edit(
-                f"**{variable}**  `successfully added with value`  ->  **{value}**"
+                f"**{variable}**  `successfully added with value`  ->  **{value}**\nWait A Min Changes In Heroku.."
             )
         heroku_var[variable] = value
     elif exe == "del":
@@ -165,77 +175,52 @@ async def dyno_usage(dyno):
     await asyncio.sleep(1.5)
 
     return await dyno.edit(
-        "⚡ **Dyno Usage** ⚡:\n\n"
-        f" ➠ `Dyno usage for` • **{Var.HEROKU_APP_NAME}** • :\n"
-        f"     ★  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+        " **Dyno Usage** :\n\n"
+        f" 🥇`Dyno usage for`  **{Var.HEROKU_APP_NAME}** 🥇:\n"
+        f"     🔰  `{AppHours}`**h**  `{AppMinutes}`**m**  "
         f"**|**  [`{AppPercentage}`**%**]"
         "\n\n"
         " ➠ `Dyno hours quota remaining this month`:\n"
-        f"     ★  `{hours}`**h**  `{minutes}`**m**  "
+        f"     🔰 `{hours}`**h**  `{minutes}`**m**  "
         f"**|**  [`{percentage}`**%**]"
         f"** ➠ Total Space: __GB**"
     )
 
 
-@borg.on(admin_cmd(pattern="logs$", outgoing=True))
-async def _(dyno):
-    if dyno.fwd_from:
-        return
+@bot.on(admin_cmd(pattern="logs$"))
+@bot.on(sudo_cmd(pattern="logs$", allow_sudo=True))
+async def _(event):
+    if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
+        return await eor(
+            dyno,
+            f"Make Sure Your HEROKU_APP_NAME & HEROKU_API_KEY are filled correct. Visit {my_group} for help.",
+            link_preview=False,
+        )
     try:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
         app = Heroku.app(HEROKU_APP_NAME)
-        thumb = REBEL_logo
-    except:
-        return await dyno.reply(
-            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku\n\n[Visit Support Group For Help](https://t.me/REBELBOT_Chit_Chat)"
+    except BaseException:
+        return await event.reply(
+            f"Make Sure Your Heroku AppName & API Key are filled correct. Visit {my_group} for help.",
+            link_preview=False,
         )
-    REBEL_data = app.get_log()
-    REBEL_key = (
-        requests.post("https://nekobin.com/api/documents", json={"content": REBEL_data})
-        .json()
-        .get("result")
-        .get("key")
-    )
-    REBEL_url = f"⚡ Pasted this logs.txt to [NekoBin](https://nekobin.com/{REBEL_key}) && [RAW PAGE](https://nekobin.com/raw/{REBEL_key}) ⚡"
-    await dyno.edit("Getting Logs....")
-    with open("logs.txt", "w") as log:
-        log.write(app.get_log())
-    await dyno.edit("Got the logs wait a sec")
-    await dyno.client.send_file(
-        dyno.chat_id,
-        "logs.txt",
-        reply_to=dyno.id,
-        thumb=thumb,
-        caption=REBEL_url,
-    )
-
-    await asyncio.sleep(5)
-    await dyno.delete()
-    return os.remove("logs.txt")
-
-
-def prettyjson(obj, indent=2, maxlinelength=80):
-    """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
-    Only dicts, lists and basic types are supported"""
-
-    items, _ = getsubitems(
-        obj,
-        itemkey="",
-        islast=True,
-        maxlinelength=maxlinelength - indent,
-        indent=indent,
-    )
-    return indentitems(items, indent, level=0)
+    # event = await eor(dyno, "Downloading Logs...")
+    LEGEND_data = app.get_log()
+    await eor(event, LEGEND_data)
 
 
 CmdHelp("heroku").add_command(
-  "usage", None, "Check your heroku dyno hours status."
+    "usage", None, "Check your heroku dyno hours status."
 ).add_command(
-  "set var", "<NEW VAR> <value>", "Add new variable or update existing value/variable\nAfter setting a variable the bot will restart. So be calm for a minute😃"
+    "set var",
+    "<NEW VAR> <value>",
+    "Add new variable or update existing value/variable\nAfter setting a variable the bot will restart. So be calm for a minute😃",
 ).add_command(
-  "get var", "<VAR NAME", "Gets the variable and its value (if any) from heroku."
+    "get var", "<VAR NAME", "Gets the variable and its value (if any) from heroku."
 ).add_command(
-  "del var", "<VAR NAME", "Deletes the variable from heroku. Bot will restart after deleting the variable. so be calm for a minute 😃"
+    "del var",
+    "<VAR NAME",
+    "Deletes the variable from heroku. Bot will restart after deleting the variable. so be calm for a minute 😃",
 ).add_command(
-  "logs", None, "Gets the app log of 100 lines of your bot directly from heroku."
+    "logs", None, "Gets the app log of 100 lines of your bot directly from heroku."
 ).add()
