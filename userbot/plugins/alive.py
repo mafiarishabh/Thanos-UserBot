@@ -32,7 +32,7 @@ pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={THANOS})😈』**\n\n"
+    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
 )
 pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
 pm_caption += f"┊»--•-- `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
