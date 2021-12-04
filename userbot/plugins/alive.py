@@ -1,5 +1,6 @@
-# Thanks to @D3_krish
-# Porting in REBELUSERBOT by REBEL75
+# Thanks to rebelbot
+# pls give proper credits 
+# this plugin make by @mafiarishabh 
 
 import asyncio
 import random
@@ -32,22 +33,21 @@ pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
+    f"                 ♢ＷＮΞＲ\n      **⇌💞[{DEFAULTUSER}](tg://user?id={REBEL})💞⇌**\n\n"
 )
 pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
-pm_caption += f"┊»--•-- `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
-pm_caption += f"┊»--•-- `𝚅𝚎𝚛𝚜𝚒𝚘𝚗:` `{THANOSversion}`\n"
-pm_caption += f"┊»--•-- `𝚂𝚞𝚍𝚘:` `{sudou}`\n"
-pm_caption += f"┊»--•-- `𝙲𝚑𝚊𝚗𝚗𝚎𝚕:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
-pm_caption += f"┊»--•-- `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [RISHABH](https://t.me/MAFIARISHABH)\n"
-pm_caption += f"┊»--•-- `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [LUCYBOT](https://t.me/LUCY_MANAGER2_bot)\n"
-pm_caption += f"┊»--•-- `Do Join:` [THANOS CHAT](https://t.me/thanosbot_chat)\n"
+pm_caption += f"┊»--•-- `ＴΣＬΣＴＨ♢Ｎ:` `{version.__version__}` \n"
+pm_caption += f"┊»--•-- `ＶΣＲＳＩ♢Ｎ:` `{THANOSversion}`\n"
+pm_caption += f"┊»--•-- `ＳＵＤ♢:` `{sudou}`\n"
+pm_caption += f"┊»--•-- `ＲΣＰ♢:` [DEPLOY](https://github.com/thanosuser/ThanosBot)\n"
+pm_caption += f"┊»--•-- `ＴＨΛＮ♢Ｓ:` [OWNER](https://t.me/MAFIARISHABH)\n"
+pm_caption += f"┊»--•-- `ＣＨΛＮＮΞＬ:` [SUPPORT](https://t.me/thanos_userbots)\n"
+pm_caption += f"┊»--•-- `ＧＲ♢ＵＰ:` [THANOS CHAT](https://t.me/thanosbot_chats)\n"
 pm_caption += f"╰ ──┉───¡! • !¡────┉── ╯\n"
-pm_caption += " [🔥𝐑𝐄𝐏𝐎🔥](https://github.com/SURTURBOT/ThanosBot) 🔹 Do Join [📜THANOS CHAT📜](https://t.me/thanosbot_chat)"
 
-# @command(outgoing=True, pattern="^.thanos$")
-@bot.on(admin_cmd(outgoing=True, pattern="thanos$"))
-@bot.on(sudo_cmd(pattern="thanos$", allow_sudo=True))
+# @command(outgoing=True, pattern="^.alive$")
+@bot.on(admin_cmd(outgoing=True, pattern="alive$"))
+@bot.on(sudo_cmd(pattern="alive$", allow_sudo=True))
 async def amireallyalive(alive):
     await alive.get_chat()   
     await alive.delete()
@@ -74,5 +74,5 @@ async def amireallyalive(alive):
 CmdHelp("alive").add_command(
   "alive", None, "To check am i alive"
 ).add_command(
-  "rebel", None, "To check am i alive with your favorite alive pic"
+  "thanos", None, "To check am i alive with your favorite alive pic"
 ).add()
