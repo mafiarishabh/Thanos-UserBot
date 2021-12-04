@@ -7,13 +7,13 @@ from datetime import datetime
 from telethon import events
 from telethon.tl import functions, types
 from userbot import CMD_HELP
-from userbot import ALIVE_NAME, REBELversion
-from REBELBOT.utils import admin_cmd, edit_or_reply
+from userbot import ALIVE_NAME, THANOSversion
+from THANOSBOT.utils import admin_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "REBEL User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "THANOS User"
 
-REBEL = bot.uid
+THANOS = bot.uid
 
 
 global USER_AFK  # pylint:disable=E0602
