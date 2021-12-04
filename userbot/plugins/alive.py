@@ -21,28 +21,28 @@ else:
 
 REBEL = bot.uid
 
-edit_time = 4
+edit_time = 6
 """ =======================CONSTANTS====================== """
 file1 = "https://telegra.ph/file/96c7031243c9bbaab31eb.jpg"
 file2 = "https://telegra.ph/file/97012cc8b32a2744c50b3.jpg"
 file3 = "https://telegra.ph/file/ba5bc78cdf6fbc65e1cce.jpg"
 file4 = "https://telegra.ph/file/4c1b9c5b5856109533635.jpg"
 """ =======================CONSTANTS====================== """
-pm_caption = "  __**🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**__\n\n"
+pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                🔰ᗰᗩՏTᗴᖇ🔰\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
+    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
 )
-pm_caption += f"┏━━━━━━━━━━━━━━━━━━\n"
-pm_caption += f"┣•➳➠ `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
-pm_caption += f"┣•➳➠ `𝚅𝚎𝚛𝚜𝚒𝚘𝚗:` `{REBELversion}`\n"
-pm_caption += f"┣•➳➠ `𝚂𝚞𝚍𝚘:` `{sudou}`\n"
-pm_caption += f"┣•➳➠ `𝙲𝚑𝚊𝚗𝚗𝚎𝚕:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
-pm_caption += f"┣•➳➠ `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [RISHABH](https://t.me/MAFIARISHABH)\n"
-pm_caption += f"┣•➳➠ `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [LUCYBOT](https://t.me/LUCY_MANAGER2_bot)\n"
-pm_caption += f"┣•➳➠ `Do Join:` [THANOS CHAT](https://t.me/thanosbot_chat)\n"
-pm_caption += f"┗━━━━━━━━━━━━━━━━━━\n"
+pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
+pm_caption += f"┊»--•-- `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
+pm_caption += f"┊»--•-- `𝚅𝚎𝚛𝚜𝚒𝚘𝚗:` `{REBELversion}`\n"
+pm_caption += f"┊»--•-- `𝚂𝚞𝚍𝚘:` `{sudou}`\n"
+pm_caption += f"┊»--•-- `𝙲𝚑𝚊𝚗𝚗𝚎𝚕:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
+pm_caption += f"┊»--•-- `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [RISHABH](https://t.me/MAFIARISHABH)\n"
+pm_caption += f"┊»--•-- `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [LUCYBOT](https://t.me/LUCY_MANAGER2_bot)\n"
+pm_caption += f"┊»--•-- `Do Join:` [THANOS CHAT](https://t.me/thanosbot_chat)\n"
+pm_caption += f"╰ ──┉───¡! • !¡────┉── ╯\n"
 pm_caption += " [🔥𝐑𝐄𝐏𝐎🔥](https://github.com/SURTURBOT/ThanosBot) 🔹 Do Join [📜THANOS CHAT📜](https://t.me/thanosbot_chat)"
 
 # @command(outgoing=True, pattern="^.thanos$")
