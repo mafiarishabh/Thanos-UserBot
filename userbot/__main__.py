@@ -52,7 +52,7 @@ for name in files:
 
 import userbot._core
 
-print(f"""Hello sir i am THANOS!! THANOS VERSION :- {REBELversion} YOUR THANOS IS READY! FOR CHECK YOUR BOT WORKING OR NOT PLEASE TYPE (.thanos/.ping) ENJOY YOUR BOT! JOIN FOR MORE FUTURE UPDATES @thanosBot_chat .""")
+print(f"""Hello sir i am THANOS!! THANOS VERSION :- {THANOSversion} YOUR THANOS IS READY! FOR CHECK YOUR BOT WORKING OR NOT PLEASE TYPE (.thanos/.ping) ENJOY YOUR BOT! JOIN FOR MORE FUTURE UPDATES @thanosBot_chats .""")
 
 if len(argv) not in (1, 3, 4):
     bot.disconnect()
