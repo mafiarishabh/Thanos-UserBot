@@ -36,7 +36,7 @@ pm_caption += (
 )
 pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
 pm_caption += f"┊»--•-- `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
-pm_caption += f"┊»--•-- `𝚅𝚎𝚛𝚜𝚒𝚘𝚗:` `{REBELversion}`\n"
+pm_caption += f"┊»--•-- `𝚅𝚎𝚛𝚜𝚒𝚘𝚗:` `{THANOSversion}`\n"
 pm_caption += f"┊»--•-- `𝚂𝚞𝚍𝚘:` `{sudou}`\n"
 pm_caption += f"┊»--•-- `𝙲𝚑𝚊𝚗𝚗𝚎𝚕:` [𝙹𝙾𝙸𝙽](https://t.me/thanos_userbot)\n"
 pm_caption += f"┊»--•-- `𝙲𝚛𝚎𝚊𝚝𝚘𝚛:` [RISHABH](https://t.me/MAFIARISHABH)\n"
