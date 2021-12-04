@@ -20,7 +20,7 @@ file4 = "https://telegra.ph/file/e021b9b5ddb6fdecedc8e.jpg"
 file5 = "https://telegra.ph/file/c66fad876cf0926662463.jpg"
 """ =======================CONSTANTS====================== """
 
-pm_caption = " __**🔥🔥ＴＨΛＮ♢Ｓ ＩＳ ΛＬＩＶΣ🔥🔥**__\n\n"
+pm_caption = " **ＴＨΛＮ♢Ｓ ＩＳ ΛＬＩＶΣ**\n\n"
 
 pm_caption = f"** {CUSTOM_ALIVE_TEXT}**\n"
 pm_caption += f"**╭────────────**\n"
