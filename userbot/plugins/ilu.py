@@ -1,7 +1,7 @@
 # PLUGIN MADE BY @The_LegendBoy FOR LEGENDBOT
 # KEEP CREDITS ELSE GAY
 
-from Thanosbot.utils import admin_cmd
+from REBELBOT.utils import admin_cmd
 
 
 @borg.on(admin_cmd(pattern="ilu ?(.*)"))
