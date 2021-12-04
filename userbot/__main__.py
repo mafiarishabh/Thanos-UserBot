@@ -7,7 +7,7 @@ from telethon import TelegramClient
 from var import Var
 from userbot.Config import Config
 from userbot.utils import load_module
-from userbot import LOAD_PLUG, LOGS, REBELversion
+from userbot import LOAD_PLUG, LOGS, THANOSversion
 from pathlib import Path
 import asyncio
 import telethon.utils
