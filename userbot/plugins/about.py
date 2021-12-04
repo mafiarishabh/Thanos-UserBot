@@ -25,15 +25,15 @@ pm_caption = " __**🔥🔥ＴＨΛＮ♢Ｓ ＩＳ ΛＬＩＶΣ🔥🔥**__\n\
 pm_caption = f"** {CUSTOM_ALIVE_TEXT}**\n"
 pm_caption += f"**╭────────────**\n"
 pm_caption += f"┣»»»『TԋαɳσʂႦσƚ』«««\n"
-pm_caption += f"┣TԋαɳσʂႦσƚ ~ {REBELversion}\n"
+pm_caption += f"┣TԋαɳσʂႦσƚ ~ {THANOSversion}\n"
 pm_caption += f"┣Tԋαɳσʂ  ~ [Owner](https://t.me/Mafiarishabh)\n"
 pm_caption += f"┣Support ~ [G𝖗ουρ](https://t.me/thanosbot_chats)\n"
 pm_caption += f"┣Řepô    ~ [Rєρο](https://github.com/thanosuser/ThanosBot)\n"
 pm_caption += f"**╰────────────**\n"
 
 
-@borg.on(admin_cmd(pattern=r"alive"))
-@borg.on(sudo_cmd(pattern="alive$", allow_sudo=True))
+@borg.on(admin_cmd(pattern=r"thanos"))
+@borg.on(sudo_cmd(pattern="thanos$", allow_sudo=True))
 async def amireallyalive(yes):
     await yes.get_chat()
 
@@ -85,8 +85,8 @@ async def amireallyalive(yes):
     await alive.delete()
 
 
-CmdHelp("alive").add_command(
+CmdHelp("thanos").add_command(
   "alive", None, "To check am i alive"
 ).add_command(
-  "rebel", None, "To check am i alive with your favorite alive pic"
+  "thanos", None, "To check am i alive with your favorite alive pic"
 ).add()
