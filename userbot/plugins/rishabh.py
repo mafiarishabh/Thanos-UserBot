@@ -13,3 +13,5 @@ async def _(event):
 
 CmdHelp("RISHABH").add_command(
   "rishabh", "<tag thanosbot owner>", "send thanos bot owner and enjoy."
+
+).add()
