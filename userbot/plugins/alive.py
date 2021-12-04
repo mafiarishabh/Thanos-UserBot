@@ -4,7 +4,7 @@
 import asyncio
 import random
 from telethon import events, version
-from userbot import ALIVE_NAME, THANOSversion
+from userbot import ALIVE_NAME, REBELversion
 from userbot.utils import admin_cmd, sudo_cmd
 from telethon.tl.types import ChannelParticipantsAdmins
 from userbot.cmdhelp import CmdHelp
@@ -32,7 +32,7 @@ pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={THANOS})😈』**\n\n"
+    f"                 ♢ＷＮΞＲ\n      **『😈[{DEFAULTUSER}](tg://user?id={REBEL})😈』**\n\n"
 )
 pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
 pm_caption += f"┊»--•-- `𝚃𝚎𝚕𝚎𝚝𝚑𝚘𝚗:` `{version.__version__}` \n"
