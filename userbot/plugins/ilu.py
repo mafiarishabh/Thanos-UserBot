@@ -3,6 +3,7 @@
 
 from REBELBOT.utils import admin_cmd
 
+from userbot.cmdhelp import CmdHelp
 
 @borg.on(admin_cmd(pattern="ilu ?(.*)"))
 async def _(event):
