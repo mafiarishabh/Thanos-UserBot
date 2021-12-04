@@ -1,4 +1,4 @@
-# PLUGIN MADE BY @The_LegendBoy FOR LEGENDBOT
+# PLUGIN MADE BY @mafiarishabh FOR THANOSBOT 
 # KEEP CREDITS ELSE GAY
 
 from REBELBOT.utils import admin_cmd
