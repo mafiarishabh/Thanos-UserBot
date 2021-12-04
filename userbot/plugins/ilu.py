@@ -101,3 +101,6 @@ async def _(event):
       💙💙💙💙💙💙
             💙💙💙💙"""
         )
+
+
+CmdHelp("propos").add_command("ilu", None, "propos your crush").add()
