@@ -11,9 +11,9 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "REBEL"
 async def _(event):
     if event.fwd_from:
         return
-    animation_interval = 6
+    animation_interval = 3
     animation_ttl = range(0, 17)
-    await event.edit("Starting...")
+    await event.edit("{first}")
     animation_chars = [
         "**ＳＵＮ♢**",
         "**ＰΞＲＳ♢ＮΛＬ░ＭΞＳＳΛＧΞ░ＫΛＲ♢**",
