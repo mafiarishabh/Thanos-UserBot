@@ -1,9 +1,10 @@
 # PLUGIN MADE BY @mafiarishabh FOR THANOSBOT 
 # KEEP CREDITS ELSE GAY
+import asyncio
 
-from REBELBOT.utils import admin_cmd
-
+from userbot.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
+from userbot.Config import Config
 
 @borg.on(admin_cmd(pattern="aok ?(.*)"))
 async def _(event):
@@ -35,4 +36,8 @@ async def _(event):
         )
 
 
-CmdHelp("propos").add_command("ilu", None, "propos your crush").add()
+CmdHelp("aok").add_command(
+  "aok", None, "ok"
+).add_command(
+ "ilu", None, "tag your gf"
+).add()
