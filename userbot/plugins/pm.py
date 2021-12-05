@@ -11,13 +11,13 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "REBEL"
 async def _(event):
     if event.fwd_from:
         return
-    animation_interval = 3
+    animation_interval = 2
     animation_ttl = range(0, 17)
-    await event.edit("{first}")
+    await event.edit("❤")
     animation_chars = [
-        "**ＳＵＮ♢**",
-        "**ＰΞＲＳ♢ＮΛＬ░ＭΞＳＳΛＧΞ░ＫΛＲ♢**",
-        f"**{DEFAULTUSER} ＰΞＲＳ♢ＮΛＬ ＭΞＳＳΛＧΞ ＫΛＲ♢**",    
+        "ＳＵＮ♢",
+        "ＰΞＲＳ♢ＮΛＬ ＭΞＳＳΛＧΞ ＫΛＲ♢",
+        f"ＰΞＲＳ♢ＮΛＬ ＭΞＳＳΛＧΞ ＫΛＲ♢",    
     ]
     for i in animation_ttl:  # By @mafiarishabh for thanos bot
 
