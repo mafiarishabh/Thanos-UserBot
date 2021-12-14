@@ -70,9 +70,10 @@ def load_module(shortname):
         mod.edit_or_reply = edit_or_reply
         mod.delete_REBEL = delete_REBEL
         mod.media_type = media_type
-        # support for REBELBOT originals
         sys.modules["REBELBOT.utils"] = userbot.utils
         sys.modules["REBELBOT"] = userbot
+        sys.modules["RISHABH"] = userbot
+        sys.modules["RISHABH.utils"] = userbot.utils
         # support for paperplaneextended
         sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
