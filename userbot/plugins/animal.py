@@ -1,5 +1,5 @@
 from userbot.cmdhelp import CmdHelp
-from REBELBOT.utils import admin_cmd
+from THANOSBOT.utils import admin_cmd
 
 M = (
     "┈┈╱▔▔▔▔▔▔▔▔▔▔▔▏\n"
