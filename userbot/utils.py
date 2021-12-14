@@ -72,8 +72,8 @@ def load_module(shortname):
         mod.media_type = media_type
         sys.modules["REBELBOT.utils"] = userbot.utils
         sys.modules["REBELBOT"] = userbot
-        sys.modules["RISHABH"] = userbot
-        sys.modules["RISHABH.utils"] = userbot.utils
+        sys.modules["THANOSBOT"] = userbot
+        sys.modules["THANOSBOT.utils"] = userbot.utils
         # support for paperplaneextended
         sys.modules["userbot.events"] = userbot.utils
         spec.loader.exec_module(mod)
