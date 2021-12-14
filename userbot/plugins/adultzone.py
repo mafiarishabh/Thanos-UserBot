@@ -1,5 +1,5 @@
 # credits to userge
-# ported to REBELBOT by @REBEL_is_op
+# ported to THANOSBOT by @mafiarishabh 
 # will be adding more soon
 
 import asyncio
@@ -9,7 +9,7 @@ import urllib
 import requests
 
 from userbot import *
-from REBELBOT.utils import *
+from THANOSBOT.utils import *
 from userbot.cmdhelp import CmdHelp
 
 @bot.on(admin_cmd("boobs$"))
