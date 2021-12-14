@@ -1,7 +1,7 @@
 import asyncio
 import random
 from telethon import events
-from REBELBOT.utils import admin_cmd
+from THANOSBOT.utils import admin_cmd
 
 from . import *
 
