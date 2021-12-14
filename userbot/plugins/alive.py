@@ -29,7 +29,7 @@ file2 = "https://telegra.ph/file/97012cc8b32a2744c50b3.jpg"
 file3 = "https://telegra.ph/file/ba5bc78cdf6fbc65e1cce.jpg"
 file4 = "https://telegra.ph/file/4c1b9c5b5856109533635.jpg"
 """ =======================CONSTANTS====================== """
-pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
+pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ ＩＳ  ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
