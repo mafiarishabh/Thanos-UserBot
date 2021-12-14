@@ -27,7 +27,7 @@ from telethon.tl.functions.channels import JoinChannelRequest
 
 from userbot import *
 from userbot.cmdhelp import *
-from REBELBOT.utils import *
+from THANOSBOT.utils import *
 from userbot.Config import Config
 
 REBEL_help_pic = Config.HELP_PIC
@@ -139,7 +139,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == bot.uid:
             await delete_REBEL(event,
-              f"⚜️ThanosBot Menu Provider Is now Closed[⚜️]({REBEL_help_pic})\n\n         **[© ThanosBot ™](t.me/ThanosBot_chat)**[⚡🔥]({REBEL_help_pic})", 5, link_preview=True
+              f"💞ThanosBot Menu Provider Is now Closed[💞]({REBEL_help_pic})\n\n         **[© ThanosBot ™](t.me/ThanosBot_chat)**[⚡🔥]({REBEL_help_pic})", 5, link_preview=True
             )
         else:
             REBEL_alert = "HELLO THERE. PLEASE MAKE YOUR OWN ThanosBot AND USE. © ThanosBot ™"
@@ -161,7 +161,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         try:
             buttons = [
                 custom.Button.inline(
-                    "🔷" + cmd[0], data=f"commands[{commands}[{page}]]({cmd[0]})"
+                    "💞" + cmd[0], data=f"commands[{commands}[{page}]]({cmd[0]})"
                 )
                 for cmd in CMD_HELP_BOT[commands]["commands"].items()
             ]
