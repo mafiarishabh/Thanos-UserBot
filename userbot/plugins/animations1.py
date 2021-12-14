@@ -4,7 +4,7 @@ from collections import deque
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot import *
-from REBELBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from THANOSBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "REBEL User"
