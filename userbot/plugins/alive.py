@@ -20,7 +20,7 @@ if ludosudo:
 else:
     sudou = "False"
 
-REBEL = bot.uid
+HOT = bot.uid
 
 edit_time = 6
 """ =======================CONSTANTS====================== """
@@ -33,7 +33,7 @@ pm_caption = "  **🔥🔥ＴＨΛＮ♢Ｓ  ＩＳ ΛＬＩＶΣ🔥🔥**\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 ♢ＷＮΞＲ\n      **⇌💞[{DEFAULTUSER}](tg://user?id={REBEL})💞⇌**\n\n"
+    f"                 ♢ＷＮΞＲ\n      **⇌💞[{DEFAULTUSER}](tg://user?id={HOT})💞⇌**\n\n"
 )
 pm_caption += f"╭ ──────┉─ • ─┉────── ╮\n"
 pm_caption += f"┊»--•-- `ＴΣＬΣＴＨ♢Ｎ:` `{version.__version__}` \n"
