@@ -3,13 +3,7 @@ from telethon.errors.rpcerrorlist import BotMethodInvalidError as dedbot
 
 from . import *
 
-msg = f"""
-**⚡ ʟɛɢɛռɖaʀʏ ᴀғ ʍɛօաɮօȶ ⚡**
 
-  •        [📑 Repo 📑](https://)
-  •        [🚀 Deploy 🚀](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fkaal0408%2FMeowBot&template=https%3A%2F%2Fgithub.com%2Fkaal0408%2Fmewbot)
-
-  •  ©️ {mew_channel} ™
 """
 botname = Config.BOT_USERNAME
 
