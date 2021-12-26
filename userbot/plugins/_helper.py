@@ -1,98 +1,88 @@
-from userbot.Config import Config
-import asyncio
+from telethon.errors import ChatSendInlineForbiddenError as noin
+from telethon.errors.rpcerrorlist import BotMethodInvalidError as dedbot
 
-import requests
-from telethon import functions
+from . import *
 
-from userbot import ALIVE_NAME, CMD_LIST, SUDO_LIST
-from THANOSBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+msg = f"""
+**⚡ ʟɛɢɛռɖaʀʏ ᴀғ ʍɛօաɮօȶ ⚡**
+
+  •        [📑 Repo 📑](https://)
+  •        [🚀 Deploy 🚀](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fkaal0408%2FMeowBot&template=https%3A%2F%2Fgithub.com%2Fkaal0408%2Fmewbot)
+
+  •  ©️ {mew_channel} ™
+"""
+botname = Config.BOT_USERNAME
 
 
-@bot.on(admin_cmd(pattern="help ?(.*)", outgoing=True))
+@bot.on(mew_cmd(pattern="repo$"))
+@bot.on(sudo_cmd(pattern="repo$", allow_sudo=True))
+async def repo(event):
+    try:
+        Meow = await bot.inline_query(botname, "repo")
+        await Meow[0].click(event.chat_id)
+        if event.sender_id == ForGo10God:
+            await event.delete()
+    except (noin, dedbot):
+        await eor(event, msg)
+
+
+@bot.on(mew_cmd(pattern="help ?(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="help ?(.*)", allow_sudo=True))
 async def yardim(event):
     if event.fwd_from:
         return
-    tgbotusername = Config.TG_BOT_USER_NAME_BF_HER
+    tgbotusername = Config.BOT_USERNAME
     input_str = event.pattern_match.group(1)
-    if tgbotusername is not None or REBEL_input == "text":
-        results = await event.client.inline_query(tgbotusername, "@thanosBot_chat")
+    try:
+        if not input_str == "":
+            if input_str in CMD_HELP:
+                await eor(event, str(CMD_HELP[args]))
+    except:
+        pass
+    if tgbotusername is not None:
+        results = await event.client.inline_query(tgbotusername, "mewbot_help")
         await results[0].click(
             event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
         )
         await event.delete()
     else:
-        await edit_or_reply(event, ["NO_BOT"])
-    
-        if input_str in CMD_LIST:
-          string = "Commands found in {}:\n".format(input_str)
-          for i in CMD_LIST[input_str]:
-              string += "  " + i
-              string += "\n"
-          await event.edit(string)
-        else:
-          await event.edit(input_str + " is not a valid plugin!")
+        await eor(
+            event,
+            "**⚠️ ERROR !!** \nPlease Re-Check BOT_TOKEN & BOT_USERNAME on Heroku.",
+        )
 
 
-@bot.on(sudo_cmd(allow_sudo=True, pattern="help ?(.*)"))
-async def info(event):
+@bot.on(mew_cmd(pattern="plinfo(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="plinfo(?: |$)(.*)", allow_sudo=True))
+async def mewbott(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
-    if input_str == "text":
-        string = (
-            "Total {count} commands found in {plugincount} sudo plugins of ThanosBot\n\n"
-        )
-        REBELcount = 0
-        plugincount = 0
-        for i in sorted(SUDO_LIST):
-            plugincount += 1
-            string += f"{plugincount}) Commands found in Plugin " + i + " are \n"
-            for iter_list in SUDO_LIST[i]:
-                string += "    " + str(iter_list)
-                string += "\n"
-                REBELcount += 1
-            string += "\n"
-        if len(string) > 4095:
-            data = string.format(count=REBELcount, plugincount=plugincount)
-            key = (
-                requests.post(
-                    "https://nekobin.com/api/documents", json={"content": data}
-                )
-                .json()
-                .get("result")
-                .get("key")
-            )
-            url = f"https://nekobin.com/{key}"
-            reply_text = f"All commands of the LynxBot are [here]({url})"
-            await event.reply(reply_text, link_preview=False)
-            return
-        await event.reply(
-            string.format(count=REBELcount, plugincount=plugincount), link_preview=False
-        )
-        return
-    if input_str:
-        if input_str in SUDO_LIST:
-            string = "<b>{count} Commands found in plugin {input_str}:</b>\n\n"
-            REBELcount = 0
-            for i in SUDO_LIST[input_str]:
-                string += f"  •  <code>{i}</code>"
-                string += "\n"
-                REBELcount += 1
-            await event.reply(
-                string.format(count=REBELcount, input_str=input_str), parse_mode="HTML"
-            )
+    args = event.pattern_match.group(1).lower()
+    if args:
+        if args in CMD_HELP:
+            await eor(event, str(CMD_HELP[args]))
         else:
-            reply = await event.reply(input_str + " is not a valid plugin!")
-            await asyncio.sleep(3)
-            await event.delete()
-            await reply.delete()
+            await eod(event, "**⚠️ Error !** \nNeed a module name to show plugin info.")
     else:
-        string = "<b>Please specify which plugin do you want help for !!\
-            \nNumber of plugins : </b><code>{count}</code>\
-            \n<b>Usage:</b> <code>.help plugin name</code>\n\n"
-        REBELcount = 0
-        for i in sorted(SUDO_LIST):
-            string += "≈ " + f"<code>{str(i)}</code>"
-            string += " "
-            REBELcount += 1
-        await event.reply(string.format(count=REBELcount), parse_mode="HTML")
+        string = ""
+        sayfa = [
+            sorted(list(CMD_HELP))[i : i + 5]
+            for i in range(0, len(sorted(list(CMD_HELP))), 5)
+        ]
+
+        for i in sayfa:
+            string += f"`▶️ `"
+            for sira, a in enumerate(i):
+                string += "`" + str(a)
+                if sira == i.index(i[-1]):
+                    string += "`"
+                else:
+                    string += "`, "
+            string += "\n"
+        await eod(
+            event,
+            "Please Specify A Module Name Of Which You Want Info" + "\n\n" + string,
+        )
+
+
+# Meowbot
