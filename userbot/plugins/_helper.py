@@ -79,4 +79,3 @@ async def mewbott(event):
         )
 
 
-# Meowbot
