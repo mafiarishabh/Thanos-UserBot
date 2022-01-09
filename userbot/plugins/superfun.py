@@ -1,7 +1,7 @@
 import asyncio
 
 @bot.on(admin_cmd(pattern="SUPERMEN$")
-async def fuckd(ult):
+async def fuckd(event):
  await ult.edit("fuck")
  await asyncio.sleep(2)
  await ult.edit("Legend-Lx")
